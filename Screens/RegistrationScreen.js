@@ -2,26 +2,28 @@ import React, { useState } from "react";
 import {
   View,
   Text,
+  Image,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback, 
-  Keyboard,
+  Keyboard, 
   StyleSheet,
-  Image,
   KeyboardAvoidingView,
   Platform,
   Alert,
 } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import Icon from "react-native-vector-icons/Feather";
+import { useNavigation } from '@react-navigation/native';
 
-const LoginScreen = () => {
+const RegistrationScreen = () => {
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [visiblePassword, setVisiblePassword] = useState(false);
+  const [userPhoto, setUserPhoto] = useState(null);
   const [focusedInput, setFocusedInput] = useState(null);
-
-  const handleRegisterButtonPress = () => {
-    console.log("Register pressed");
-  };
+  const navigation = useNavigation();
 
   const handleFocus = (placeholder) => {
     setFocusedInput(placeholder);
@@ -35,17 +37,54 @@ const LoginScreen = () => {
     setVisiblePassword(!visiblePassword);
   };
 
-  const clearForm = () => {
-    setEmail("");
-    setPassword("");
+  const handlePlusButtonPress = async () => {
+    try {
+      const permissionResult =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (permissionResult.granted === false) {
+        Alert.alert(
+          "Permission Denied",
+          "Please enable media library permission to select a photo."
+        );
+        return;
+      }
+      const options = {
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+      };
+      const result = await ImagePicker.launchImageLibraryAsync(options);
+      if (!result.canceled) {
+        setUserPhoto(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.log("Error in handlePlusButtonPress:", error);
+    }
   };
 
-  const handleLoginButtonPress = () => {
-    if (!email || !password) {
+  const removeUserPhoto = () => {
+    setUserPhoto(null);
+  };
+
+  const clearForm = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setUserPhoto(null);
+  };
+
+  const onRegistration = () => {
+    if (!name || !email || !password) {
       Alert.alert("Помилка", "Будь ласка, заповніть усі поля");
       return;
     }
-    console.log(email, password);
+    console.log(name, email, password);
+
+    Alert.alert(
+      "Реєстрація успішна",
+      `login: ${name}, email: ${email}, password: ${password}`,
+    );
     clearForm();
   };
 
@@ -59,11 +98,46 @@ const LoginScreen = () => {
           style={styles.image}
         />
       </View>
+      <View style={styles.avatarContainer}>
+        {userPhoto && (
+          <Image source={{ uri: userPhoto }} style={styles.avatarImage} />
+        )}
+        {!userPhoto ? (
+          <TouchableOpacity
+            style={styles.avatarButton}
+            onPress={handlePlusButtonPress}
+          >
+            <Icon name="plus-circle" size={25} color="#FF6C00" />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={styles.avatarButton}
+            onPress={removeUserPhoto}
+          >
+            <Icon name="x-circle" size={25} color="#BDBDBD" />
+          </TouchableOpacity>
+        )}
+      </View>
+
       <View style={styles.formContainer}>
-        <Text style={styles.heading}>Увійти</Text>
+        <Text style={styles.heading}>Реєстрація</Text>
+        
         <KeyboardAvoidingView
           behavior={Platform.OS == "ios" ? "padding" : "height"}
         >
+          <TextInput
+            style={[
+              styles.input,
+              focusedInput === "Логін" && styles.inputFocused,
+            ]}
+            onFocus={() => handleFocus("Логін")}
+            onBlur={handleBlur}
+            placeholder="Логін"
+            value={name}
+            autoComplete="name"
+            onChangeText={setName}
+          />
+
           <TextInput
             style={[
               styles.input,
@@ -102,16 +176,14 @@ const LoginScreen = () => {
             </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleLoginButtonPress}
-        >
-          <Text style={styles.buttonText}>Увійти</Text>
+  
+        <TouchableOpacity style={styles.button} onPress={onRegistration}>
+          <Text style={styles.buttonText}>Зареєструватися</Text>
         </TouchableOpacity>
         <View style={styles.textContainer}>
-          <Text style={styles.text}>Немає акаунту?</Text>
-          <TouchableOpacity onPress={handleRegisterButtonPress}>
-            <Text style={[styles.text, styles.linkText]}>Зареєструватись</Text>
+          <Text style={[styles.text, styles.centerText]}>Вже є акаунт?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text style={[styles.text, styles.linkText]}>Увійти</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -131,10 +203,41 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
   },
+  avatarContainer: {
+    position: "absolute",
+    top: "45%",
+    left: "50%",
+    marginTop: -60,
+    marginLeft: -60,
+    width: 120,
+    height: 120,
+    borderRadius: 16,
+    backgroundColor: "#F6F6F6",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 9,
+  },
+  avatarImage: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: 120,
+    height: 120,
+    backgroundColor: "#F6F6F6",
+    borderRadius: 16,
+  },
+  avatarButton: {
+    position: "absolute",
+    bottom: 14,
+    right: -14,
+    backgroundColor: "#FFFFFF",
+    borderColor: "#FFFFFF",
+    borderRadius: 50,
+    borderWidth: 0,
+  },
   formContainer: {
     position: "relative",
     flex: 1,
-    height: 489,
+    height: 549,
     backgroundColor: "#ffffff",
     paddingHorizontal: 20,
     paddingTop: 50,
@@ -144,9 +247,9 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontFamily: "Roboto-Medium",
+    textAlign: "center",
     fontSize: 30,
     marginBottom: 30,
-    textAlign: "center",
   },
   input: {
     width: 343,
@@ -180,33 +283,36 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     color: "#1B4371",
   },
+
   button: {
     backgroundColor: "#FF6C00",
     width: 343,
     height: 50,
-    marginTop: 43,
+    marginTop: 40,
     paddingVertical: 12,
     paddingHorizontal: 10,
     borderRadius: 100,
   },
   buttonText: {
-    color: "#ffffff",
+    color: "white",
     fontSize: 16,
     textAlign: "center",
   },
   textContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 16,
+    marginTop: 12,
   },
   text: {
     color: "#1B4371",
     fontSize: 16,
   },
   linkText: {
-    textDecorationLine: "underline",
     marginLeft: 5,
+  },
+  centerText: {
+    textAlign: "center",
   },
 });
 
-export default LoginScreen;
+export default RegistrationScreen;
