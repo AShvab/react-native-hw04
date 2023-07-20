@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
-// import { StyleSheet } from "react-native";
+
 
 import Home from "./Screens/Home";
 import LoginScreen from "./Screens/LoginScreen";
@@ -26,7 +26,8 @@ export default function App() {
   }
   return (
     <NavigationContainer >
-    <MainStack.Navigator initialRouteName="RegistrationScreen" >
+    {/* <MainStack.Navigator initialRouteName="RegistrationScreen" > */}
+    <MainStack.Navigator initialRouteName="Home" >
       <MainStack.Screen name="Registration" component={RegistrationScreen} options={{ headerShown: false }} />
       <MainStack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
       <MainStack.Screen name="Posts" component={PostsScreen} options={{ headerShown: false }} />

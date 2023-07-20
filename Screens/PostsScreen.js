@@ -1,21 +1,35 @@
-import { View, Text, StyleSheet,TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import userPhoto from "../assets/images/userPhoto.jpg";
+import { Feather } from "@expo/vector-icons";
 
-const PostsScreen = () => {
-  const handleLogoutButtonPress = () => {
-    console.log("Logout button pressed");
-  };
+const PostsScreen = ({navigation}) => {
+  // const handleLogoutButtonPress = () => {
+  //   console.log("Logout button pressed");
+  // };
 
   return (
     <View style={styles.container}>
       <View style={styles.headingContainer}>
         <Text style={styles.heading}>Публікації</Text>
-        <TouchableOpacity style={styles.logoutButton} onPress={handleLogoutButtonPress}>
-          <Text style={styles.logoutButtonText}>Logout</Text>    
+        <TouchableOpacity
+        onPress={() => navigation.navigate("Login")}
+          style={styles.logoutButton}
+          
+        >
+          <Feather name="log-out" size={24} color={"#BDBDBD"} />
         </TouchableOpacity>
+      </View>
+      <View style={styles.userCard}>
+        <Image style={styles.userPhoto} source={userPhoto} />
+        <View>
+          <Text style={styles.userName}>Natali Romanova</Text>
+          <Text style={styles.userEmail}>email@example.com</Text>
+        </View>
       </View>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     width: "100%",
@@ -40,17 +54,43 @@ const styles = StyleSheet.create({
   heading: {
     fontFamily: "Roboto-Medium",
     fontSize: 17,
-    marginLeft:'auto',
-    marginRight:'auto',
+    marginLeft: "auto",
+    marginRight: "auto",
   },
-  logoutButton:{
-    // width:24,
-    height:24,
-    backgroundColor: "#f8f8f8",
+  logoutButton: {
+    paddingRight: 10,
   },
-  logoutButtonText:{
+  logoutButtonText: {
     fontSize: 12,
-  }
+  },
+  userCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 30,
+  },
+
+  userPhoto: {
+    width: 60,
+    height: 60,
+    borderRadius: 16,
+  },
+
+  userName: {
+    fontFamily: "Roboto-Bold",
+    fontSize: 13,
+    lineHeight: 15,
+    color: "#212121",
+  },
+
+  userEmail: {
+    fontFamily: "Roboto-Regular",
+    fontSize: 11,
+    lineHeight: 13,
+    color: "#212121",
+  },
 });
 
 export default PostsScreen;
