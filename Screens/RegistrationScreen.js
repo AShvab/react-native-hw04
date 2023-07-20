@@ -93,7 +93,7 @@ const RegistrationScreen = () => {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-          source={require("../../assets/images/backgroundImg.jpg")}
+          source={require("../assets/images/backgroundImg.jpg")}
           resizeMode="cover"
           style={styles.image}
         />
