@@ -2,42 +2,42 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet } from "react-native";
 import PostsScreen from "./PostsScreen";
-import CreatePostsScreen  from "../Screens/CreatePostsScreen";
+import CreatePostsScreen from "../Screens/CreatePostsScreen";
 import ProfileScreen from "../Screens/ProfileScreen";
 import { Feather, Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const Tabs = createBottomTabNavigator();
 
-const Home = ({navigation}) => {
+const Home = () => {
+  const navigation = useNavigation();
   return (
     <Tabs.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: {          
+        tabBarStyle: {
           alignItems: "center",
-          height: 60
+          height: 60,
         },
         tabBarLabelStyle: { display: "none" },
-        tabBarActiveTintColor: "orange", 
-        tabBarInactiveTintColor: "gray", 
       }}
     >
       <Tabs.Screen
         name="Posts"
         component={PostsScreen}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="ios-grid-outline" size={24} color={color} />
+          tabBarIcon: () => (
+            <Feather name="grid" size={24} color={"#212121"} />
           ),
         }}
       />
       <Tabs.Screen
-      onPress={() => navigation.navigate("CreatePostsScreen")}
+        onPress={() => navigation.navigate("CreatePostsScreen")}
         name="CreatePost"
         component={CreatePostsScreen}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="add" size={24} color={color} />
+          tabBarIcon: () => (
+            <Ionicons name="add" size={24} color={"ffffff"} style={styles.addButtonContainer}/>
           ),
         }}
       />
@@ -45,8 +45,8 @@ const Home = ({navigation}) => {
         name="Profile"
         component={ProfileScreen}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Feather name="user" size={24} color={color} />
+          tabBarIcon: () => (
+            <Feather name="user" size={24} color={"#212121"} />
           ),
         }}
       />
@@ -59,6 +59,18 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  addButtonContainer: {
+    height: 40,
+    width: 70,
+    borderRadius: 20,
+    backgroundColor: "#FF6C00",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "white",
+    paddingTop:8,
+    paddingBottom:8,
+    paddingLeft:23,
   },
 });
 

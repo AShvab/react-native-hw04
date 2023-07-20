@@ -1,20 +1,18 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import userPhoto from "../assets/images/userPhoto.jpg";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-const PostsScreen = ({navigation}) => {
-  // const handleLogoutButtonPress = () => {
-  //   console.log("Logout button pressed");
-  // };
+const PostsScreen = () => {
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
       <View style={styles.headingContainer}>
         <Text style={styles.heading}>Публікації</Text>
         <TouchableOpacity
-        onPress={() => navigation.navigate("Login")}
+          onPress={() => navigation.navigate("Login")}
           style={styles.logoutButton}
-          
         >
           <Feather name="log-out" size={24} color={"#BDBDBD"} />
         </TouchableOpacity>
