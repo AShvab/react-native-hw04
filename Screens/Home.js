@@ -5,12 +5,11 @@ import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "../Screens/CreatePostsScreen";
 import ProfileScreen from "../Screens/ProfileScreen";
 import { Feather, Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 
 const Tabs = createBottomTabNavigator();
 
 const Home = () => {
-  const navigation = useNavigation();
+  
   return (
     <Tabs.Navigator
       screenOptions={{
@@ -26,18 +25,20 @@ const Home = () => {
         name="Posts"
         component={PostsScreen}
         options={{
-          tabBarIcon: () => (
-            <Feather name="grid" size={24} color={"#212121"} />
-          ),
+          tabBarIcon: () => <Feather name="grid" size={24} color={"#212121"} />,
         }}
       />
       <Tabs.Screen
-        onPress={() => navigation.navigate("CreatePostsScreen")}
         name="CreatePost"
         component={CreatePostsScreen}
         options={{
           tabBarIcon: () => (
-            <Ionicons name="add" size={24} color={"ffffff"} style={styles.addButtonContainer}/>
+            <Ionicons
+              name="add"
+              size={24}
+              color={"ffffff"}
+              style={styles.addButtonContainer}
+            />
           ),
         }}
       />
@@ -45,9 +46,7 @@ const Home = () => {
         name="Profile"
         component={ProfileScreen}
         options={{
-          tabBarIcon: () => (
-            <Feather name="user" size={24} color={"#212121"} />
-          ),
+          tabBarIcon: () => <Feather name="user" size={24} color={"#212121"} />,
         }}
       />
     </Tabs.Navigator>
@@ -55,11 +54,6 @@ const Home = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   addButtonContainer: {
     height: 40,
     width: 70,
@@ -68,9 +62,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     color: "white",
-    paddingTop:8,
-    paddingBottom:8,
-    paddingLeft:23,
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 23,
   },
 });
 

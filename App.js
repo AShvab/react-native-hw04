@@ -30,8 +30,9 @@ export default function App() {
     <MainStack.Navigator initialRouteName="Home" >
       <MainStack.Screen name="Registration" component={RegistrationScreen} options={{ headerShown: false }} />
       <MainStack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-      <MainStack.Screen name="Posts" component={PostsScreen} options={{ headerShown: false }} />
       <MainStack.Screen name="Home" component={Home} options={{ title: "Start screen", headerShown: false }} />
+      <MainStack.Screen name="Posts" component={PostsScreen} options={{ headerShown: false }} />
+      
     </MainStack.Navigator>
     <StatusBar style="auto" />
   </NavigationContainer>

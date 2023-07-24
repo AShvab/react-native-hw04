@@ -2,12 +2,13 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import userPhoto from "../assets/images/userPhoto.jpg";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { gStyle } from "../styles/style";
 
 const PostsScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <View style={gStyle.screenContainer}>
       <View style={styles.headingContainer}>
         <Text style={styles.heading}>Публікації</Text>
         <TouchableOpacity
@@ -29,11 +30,11 @@ const PostsScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#ffffff",
-  },
+  // container: {
+  //   width: "100%",
+  //   height: "100%",
+  //   backgroundColor: "#ffffff",
+  // },
   headingContainer: {
     position: "relative",
     display: "flex",
