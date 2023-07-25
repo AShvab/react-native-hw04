@@ -5,8 +5,8 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback, 
-  Keyboard, 
+  TouchableWithoutFeedback,
+  Keyboard,
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import Icon from "react-native-vector-icons/Feather";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 const RegistrationScreen = () => {
   const [name, setName] = useState("");
@@ -83,111 +83,111 @@ const RegistrationScreen = () => {
 
     Alert.alert(
       "Реєстрація успішна",
-      `login: ${name}, email: ${email}, password: ${password}`,
+      `login: ${name}, email: ${email}, password: ${password}`
     );
     clearForm();
   };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image
-          source={require("../assets/images/backgroundImg.jpg")}
-          resizeMode="cover"
-          style={styles.image}
-        />
-      </View>
-      <View style={styles.avatarContainer}>
-        {userPhoto && (
-          <Image source={{ uri: userPhoto }} style={styles.avatarImage} />
-        )}
-        {!userPhoto ? (
-          <TouchableOpacity
-            style={styles.avatarButton}
-            onPress={handlePlusButtonPress}
-          >
-            <Icon name="plus-circle" size={25} color="#FF6C00" />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            style={styles.avatarButton}
-            onPress={removeUserPhoto}
-          >
-            <Icon name="x-circle" size={25} color="#BDBDBD" />
-          </TouchableOpacity>
-        )}
-      </View>
-
-      <View style={styles.formContainer}>
-        <Text style={styles.heading}>Реєстрація</Text>
-        
-        <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
-        >
-          <TextInput
-            style={[
-              styles.input,
-              focusedInput === "Логін" && styles.inputFocused,
-            ]}
-            onFocus={() => handleFocus("Логін")}
-            onBlur={handleBlur}
-            placeholder="Логін"
-            value={name}
-            autoComplete="name"
-            onChangeText={setName}
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image
+            source={require("../assets/images/backgroundImg.jpg")}
+            resizeMode="cover"
+            style={styles.image}
           />
+        </View>
+        <View style={styles.avatarContainer}>
+          {userPhoto && (
+            <Image source={{ uri: userPhoto }} style={styles.avatarImage} />
+          )}
+          {!userPhoto ? (
+            <TouchableOpacity
+              style={styles.avatarButton}
+              onPress={handlePlusButtonPress}
+            >
+              <Icon name="plus-circle" size={25} color="#FF6C00" />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.avatarButton}
+              onPress={removeUserPhoto}
+            >
+              <Icon name="x-circle" size={25} color="#BDBDBD" />
+            </TouchableOpacity>
+          )}
+        </View>
 
-          <TextInput
-            style={[
-              styles.input,
-              focusedInput === "Адреса електронної пошти" &&
-                styles.inputFocused,
-            ]}
-            onChangeText={setEmail}
-            onFocus={() => handleFocus("Адреса електронної пошти")}
-            onBlur={handleBlur}
-            autoComplete="email"
-            value={email}
-            placeholder="Адреса електронної пошти"
-          />
-          <View style={styles.passwordInputContainer}>
+        <View style={styles.formContainer}>
+          <Text style={styles.heading}>Реєстрація</Text>
+
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+          >
             <TextInput
-              placeholder="Пароль"
               style={[
                 styles.input,
-                styles.lastInput,
-                focusedInput === "Пароль" && styles.inputFocused,
+                focusedInput === "Логін" && styles.inputFocused,
               ]}
-              onFocus={() => handleFocus("Пароль")}
+              onFocus={() => handleFocus("Логін")}
               onBlur={handleBlur}
-              value={password}
-              autoComplete="password"
-              secureTextEntry={!visiblePassword}
-              onChangeText={setPassword}
+              placeholder="Логін"
+              value={name}
+              autoComplete="name"
+              onChangeText={setName}
             />
-            <TouchableOpacity
-              style={styles.passwordIsShown}
-              onPress={toggleVisiblePassword}
-            >
-              <Text style={styles.passwordIsShownText}>
-                {visiblePassword ? "Приховати" : "Показати"}
-              </Text>
+
+            <TextInput
+              style={[
+                styles.input,
+                focusedInput === "Адреса електронної пошти" &&
+                  styles.inputFocused,
+              ]}
+              onChangeText={setEmail}
+              onFocus={() => handleFocus("Адреса електронної пошти")}
+              onBlur={handleBlur}
+              autoComplete="email"
+              value={email}
+              placeholder="Адреса електронної пошти"
+            />
+            <View style={styles.passwordInputContainer}>
+              <TextInput
+                placeholder="Пароль"
+                style={[
+                  styles.input,
+                  styles.lastInput,
+                  focusedInput === "Пароль" && styles.inputFocused,
+                ]}
+                onFocus={() => handleFocus("Пароль")}
+                onBlur={handleBlur}
+                value={password}
+                autoComplete="password"
+                secureTextEntry={!visiblePassword}
+                onChangeText={setPassword}
+              />
+              <TouchableOpacity
+                style={styles.passwordIsShown}
+                onPress={toggleVisiblePassword}
+              >
+                <Text style={styles.passwordIsShownText}>
+                  {visiblePassword ? "Приховати" : "Показати"}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+
+          <TouchableOpacity style={styles.button} onPress={onRegistration}>
+            <Text style={styles.buttonText}>Зареєструватися</Text>
+          </TouchableOpacity>
+          <View style={styles.textContainer}>
+            <Text style={[styles.text, styles.centerText]}>Вже є акаунт?</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+              <Text style={[styles.text, styles.linkText]}>Увійти</Text>
             </TouchableOpacity>
           </View>
-        </KeyboardAvoidingView>
-  
-        <TouchableOpacity style={styles.button} onPress={onRegistration}>
-          <Text style={styles.buttonText}>Зареєструватися</Text>
-        </TouchableOpacity>
-        <View style={styles.textContainer}>
-          <Text style={[styles.text, styles.centerText]}>Вже є акаунт?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text style={[styles.text, styles.linkText]}>Увійти</Text>
-          </TouchableOpacity>
         </View>
       </View>
-    </View>
     </TouchableWithoutFeedback>
   );
 };
