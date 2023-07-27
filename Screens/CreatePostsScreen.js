@@ -16,7 +16,6 @@ import { gStyle } from "../styles/style";
 import * as ImagePicker from "expo-image-picker";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-const Tabs = createBottomTabNavigator();
 
 const CreatePostsScreen = () => {
   const navigation = useNavigation();
@@ -94,7 +93,10 @@ const CreatePostsScreen = () => {
             </View>
           </View>
 
-          <Text style={styles.text}>Завантажте фото</Text>
+          <Text style={styles.text}>
+            {" "}
+            {postPhoto ? "Редагувати фото" : "Завантажте фото"}
+          </Text>
           <View style={{ paddingLeft: 16, paddingRight: 16 }}>
             <TextInput
               style={[styles.inputText, styles.firstInput]}
@@ -104,6 +106,46 @@ const CreatePostsScreen = () => {
             />
             <TextInput style={styles.inputText} placeholder="Місцевість..." />
           </View>
+          <View style={styles.publishButtonContainer}>
+          <TouchableOpacity
+                      
+                            style={[
+                                gStyle.button,
+                                postPhoto
+                                    ? {
+                                          backgroundColor: "#FF6C00",
+                                      }
+                                    : {
+                                          color: "#BDBDBD",
+                                          backgroundColor: "#F6F6F6",
+                                      },
+                            ]}
+                            title="Опублікувати"
+                            disabled={!postPhoto}
+                        >
+                            <Text
+                                style={[
+                                    gStyle.buttonText,
+                                    postPhoto
+                                        ? {
+                                              backgroundColor: "#FF6C00",
+                                          }
+                                        : {
+                                              color: "#BDBDBD",
+                                              backgroundColor: "#F6F6F6",
+                                          },
+                                ]}
+                            >
+                                Опублікувати
+                            </Text>
+                        </TouchableOpacity>
+                        </View>
+                        <TouchableOpacity
+                        onPress={removePostPhoto}
+                        style={styles.removePostButton}
+                    >
+                        <Text>Видалити</Text>
+                    </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
@@ -159,6 +201,23 @@ const styles = StyleSheet.create({
   firstInput: {
     marginTop: 30,
   },
+  publishButtonContainer: {
+    alignItems: "center",
+    marginTop: 10,
+    paddingLeft:16,
+    paddingRight:16,
+  },
+  removePostButton: {
+    marginTop: 100,
+    marginLeft: "auto",
+    marginRight: "auto",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 70,
+    height: 40,
+    backgroundColor: "#F6F6F6",
+    borderRadius: 20,
+},
 });
 
 export default CreatePostsScreen;

@@ -26,5 +26,19 @@ export const gStyle = StyleSheet.create({
         fontSize: 17,
         marginLeft: "auto",
         marginRight: "auto",
-    }
+    },
+    button: {
+      backgroundColor: "#FF6C00",
+      width: "100%",
+      height: 50,
+      marginTop: 43,
+      paddingVertical: 12,
+      paddingHorizontal: 10,
+      borderRadius: 100,
+    },
+    buttonText: {
+      color: "#ffffff",
+      fontSize: 16,
+      textAlign: "center",
+    },
 });

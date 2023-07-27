@@ -34,18 +34,13 @@ const LoginScreen = () => {
     setVisiblePassword(!visiblePassword);
   };
 
-  const clearForm = () => {
-    setEmail("");
-    setPassword("");
-  };
 
   const handleLoginButtonPress = () => {
     if (!email || !password) {
       Alert.alert("Помилка", "Будь ласка, заповніть усі поля");
       return;
     }
-    console.log(email, password);
-    clearForm();
+    navigation.navigate("Home");
   };
 
   return (

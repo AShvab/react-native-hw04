@@ -2,8 +2,9 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet } from "react-native";
 import PostsScreen from "./PostsScreen";
-import CreatePostsScreen from "../Screens/CreatePostsScreen";
-import ProfileScreen from "../Screens/ProfileScreen";
+import CreatePostsScreen from "./CreatePostsScreen";
+import ProfileScreen from "./ProfileScreen";
+
 import { Feather, Ionicons } from "@expo/vector-icons";
 
 const Tabs = createBottomTabNavigator();
@@ -25,6 +26,7 @@ const Home = () => {
         name="Posts"
         component={PostsScreen}
         options={{
+          
           tabBarIcon: () => <Feather name="grid" size={24} color={"#212121"} />,
         }}
       />
@@ -32,6 +34,7 @@ const Home = () => {
         name="CreatePost"
         component={CreatePostsScreen}
         options={{
+          tabBarStyle: { display: "none" },
           tabBarIcon: () => (
             <Ionicons
               name="add"

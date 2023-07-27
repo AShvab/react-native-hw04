@@ -67,25 +67,12 @@ const RegistrationScreen = () => {
     setUserPhoto(null);
   };
 
-  const clearForm = () => {
-    setName("");
-    setEmail("");
-    setPassword("");
-    setUserPhoto(null);
-  };
-
   const onRegistration = () => {
     if (!name || !email || !password) {
       Alert.alert("Помилка", "Будь ласка, заповніть усі поля");
       return;
     }
-    console.log(name, email, password);
-
-    Alert.alert(
-      "Реєстрація успішна",
-      `login: ${name}, email: ${email}, password: ${password}`
-    );
-    clearForm();
+    navigation.navigate("Home");   
   };
 
   return (

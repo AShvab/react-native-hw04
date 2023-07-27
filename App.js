@@ -9,9 +9,10 @@ import { useFonts } from "expo-font";
 import Home from "./Screens/Home";
 import LoginScreen from "./Screens/LoginScreen";
 import RegistrationScreen from "./Screens/RegistrationScreen";
-import PostsScreen from "./Screens/PostsScreen";
+import MapScreen from "./Screens/MapScreen";
+import CommentsScreen from './Screens/CommentsScreen';
 
-const MainStack = createStackNavigator();  // вказує на групу навігаторів
+const MainStack = createStackNavigator(); 
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,13 +26,13 @@ export default function App() {
   }
   return (
     <NavigationContainer >
-    {/* <MainStack.Navigator initialRouteName="RegistrationScreen" > */}
-    <MainStack.Navigator initialRouteName="Home" >
-      <MainStack.Screen name="Registration" component={RegistrationScreen} options={{ headerShown: false }} />
+    {/* <MainStack.Navigator initialRouteName="Login" > */}
+    <MainStack.Navigator initialRouteName="Home" >      
       <MainStack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+      <MainStack.Screen name="Registration" component={RegistrationScreen} options={{ headerShown: false }} />
       <MainStack.Screen name="Home" component={Home} options={{ title: "Start screen", headerShown: false }} />
-      <MainStack.Screen name="Posts" component={PostsScreen} options={{ headerShown: false }} />
-      
+      <MainStack.Screen name="Map" component={MapScreen} options={{ headerShown: false }}/>
+      <MainStack.Screen name="Comments" component={CommentsScreen} options={{ headerShown: false }} />      
     </MainStack.Navigator>
     <StatusBar style="auto" />
   </NavigationContainer>
