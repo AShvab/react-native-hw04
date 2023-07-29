@@ -27,7 +27,7 @@ const Home = () => {
         component={PostsScreen}
         options={{
           
-          tabBarIcon: () => <Feather name="grid" size={24} color={"#212121"} />,
+          tabBarIcon: () => <Feather name="grid" size={24} color={"rgba(33, 33, 33, 0.8)"} />,
         }}
       />
       <Tabs.Screen
@@ -49,7 +49,7 @@ const Home = () => {
         name="Profile"
         component={ProfileScreen}
         options={{
-          tabBarIcon: () => <Feather name="user" size={24} color={"#212121"} />,
+          tabBarIcon: () => <Feather name="user" size={24} color={"rgba(33, 33, 33, 0.8)"} />,
         }}
       />
     </Tabs.Navigator>
