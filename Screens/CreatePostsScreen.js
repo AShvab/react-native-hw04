@@ -64,7 +64,11 @@ const CreatePostsScreen = () => {
               onPress={() => navigation.goBack()}
               style={gStyle.backButton}
             >
-              <Feather name="arrow-left" size={24} color={"#212121"} />
+              <Feather
+                name="arrow-left"
+                size={24}
+                color={"rgba(33, 33, 33, 0.8)"}
+              />
             </TouchableOpacity>
             <Text style={gStyle.heading}>Створити публікацію</Text>
           </View>
@@ -89,7 +93,9 @@ const CreatePostsScreen = () => {
                       }
                     : {},
                 ]}
-              ></TouchableOpacity>
+              >
+                <Feather name="camera" size={24} color={"#BDBDBD"} />
+              </TouchableOpacity>
             </View>
           </View>
 
@@ -104,48 +110,57 @@ const CreatePostsScreen = () => {
               value={photoName}
               onChangeText={(text) => setPhotoName(text)}
             />
-            <TextInput style={styles.inputText} placeholder="Місцевість..." />
+
+            <Feather
+              name="map-pin"
+              size={24}
+              color={"#BDBDBD"}
+              style={styles.mapPin}
+            />
+            <TextInput
+              style={styles.inputTextMap}
+              placeholder="Місцевість..."
+            />
           </View>
           <View style={styles.publishButtonContainer}>
+            <TouchableOpacity
+              style={[
+                gStyle.button,
+                postPhoto
+                  ? {
+                      backgroundColor: "#FF6C00",
+                    }
+                  : {
+                      color: "#BDBDBD",
+                      backgroundColor: "#F6F6F6",
+                    },
+              ]}
+              title="Опублікувати"
+              disabled={!postPhoto}
+            >
+              <Text
+                style={[
+                  gStyle.buttonText,
+                  postPhoto
+                    ? {
+                        backgroundColor: "#FF6C00",
+                      }
+                    : {
+                        color: "#BDBDBD",
+                        backgroundColor: "#F6F6F6",
+                      },
+                ]}
+              >
+                Опублікувати
+              </Text>
+            </TouchableOpacity>
+          </View>
           <TouchableOpacity
-                      
-                            style={[
-                                gStyle.button,
-                                postPhoto
-                                    ? {
-                                          backgroundColor: "#FF6C00",
-                                      }
-                                    : {
-                                          color: "#BDBDBD",
-                                          backgroundColor: "#F6F6F6",
-                                      },
-                            ]}
-                            title="Опублікувати"
-                            disabled={!postPhoto}
-                        >
-                            <Text
-                                style={[
-                                    gStyle.buttonText,
-                                    postPhoto
-                                        ? {
-                                              backgroundColor: "#FF6C00",
-                                          }
-                                        : {
-                                              color: "#BDBDBD",
-                                              backgroundColor: "#F6F6F6",
-                                          },
-                                ]}
-                            >
-                                Опублікувати
-                            </Text>
-                        </TouchableOpacity>
-                        </View>
-                        <TouchableOpacity
-                        onPress={removePostPhoto}
-                        style={styles.removePostButton}
-                    >
-                        <Text>Видалити</Text>
-                    </TouchableOpacity>
+            onPress={removePostPhoto}
+            style={styles.removePostButton}
+          >
+            <Feather name="trash-2" size={24} color={"#BDBDBD"} />
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
@@ -192,11 +207,28 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 50,
     marginTop: 20,
-    color: "#BDBDBD",
     fontSize: 16,
     borderStyle: "solid",
     borderColor: "#E8E8E8",
     borderBottomWidth: 1,
+  },
+  inputTextMap: {
+    width: "100%",
+    height: 50,
+    marginTop: 20,
+    paddingLeft: 28,
+    fontSize: 16,
+    borderStyle: "solid",
+    borderColor: "#E8E8E8",
+    borderBottomWidth: 1,
+    position: "relative",
+  },
+  mapPin: {
+    position: "absolute",
+    paddingLeft: 16,
+    bottom: 13,
+
+    left: 0,
   },
   firstInput: {
     marginTop: 30,
@@ -204,8 +236,8 @@ const styles = StyleSheet.create({
   publishButtonContainer: {
     alignItems: "center",
     marginTop: 10,
-    paddingLeft:16,
-    paddingRight:16,
+    paddingLeft: 16,
+    paddingRight: 16,
   },
   removePostButton: {
     marginTop: 100,
@@ -217,7 +249,7 @@ const styles = StyleSheet.create({
     height: 40,
     backgroundColor: "#F6F6F6",
     borderRadius: 20,
-},
+  },
 });
 
 export default CreatePostsScreen;

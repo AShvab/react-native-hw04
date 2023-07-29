@@ -11,10 +11,13 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
+  ImageBackground,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import Icon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
+import { gStyle } from "../styles/style";
+import Background from "../assets/images/backgroundImg.jpg";
 
 const RegistrationScreen = () => {
   const [name, setName] = useState("");
@@ -72,137 +75,135 @@ const RegistrationScreen = () => {
       Alert.alert("Помилка", "Будь ласка, заповніть усі поля");
       return;
     }
-    navigation.navigate("Home");   
+    navigation.navigate("Home");
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image
-            source={require("../assets/images/backgroundImg.jpg")}
-            resizeMode="cover"
-            style={styles.image}
-          />
-        </View>
-        <View style={styles.avatarContainer}>
-          {userPhoto && (
-            <Image source={{ uri: userPhoto }} style={styles.avatarImage} />
-          )}
-          {!userPhoto ? (
-            <TouchableOpacity
-              style={styles.avatarButton}
-              onPress={handlePlusButtonPress}
+    <ImageBackground
+      source={Background}
+      resizeMode="cover"
+      style={{ width: "100%", height: "100%" }}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <View style={styles.avatarContainer}>
+            {userPhoto && (
+              <Image source={{ uri: userPhoto }} style={styles.avatarImage} />
+            )}
+            {!userPhoto ? (
+              <TouchableOpacity
+                style={styles.avatarButton}
+                onPress={handlePlusButtonPress}
+              >
+                <Icon name="plus-circle" size={25} color="#FF6C00" />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.avatarButton}
+                onPress={removeUserPhoto}
+              >
+                <Icon name="x-circle" size={25} color="#BDBDBD" />
+              </TouchableOpacity>
+            )}
+          </View>
+
+          <View style={styles.formContainer}>
+            <Text style={styles.heading}>Реєстрація</Text>
+
+            <KeyboardAvoidingView
+              behavior={Platform.OS == "ios" ? "padding" : "height"}
             >
-              <Icon name="plus-circle" size={25} color="#FF6C00" />
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              style={styles.avatarButton}
-              onPress={removeUserPhoto}
-            >
-              <Icon name="x-circle" size={25} color="#BDBDBD" />
-            </TouchableOpacity>
-          )}
-        </View>
-
-        <View style={styles.formContainer}>
-          <Text style={styles.heading}>Реєстрація</Text>
-
-          <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
-          >
-            <TextInput
-              style={[
-                styles.input,
-                focusedInput === "Логін" && styles.inputFocused,
-              ]}
-              onFocus={() => handleFocus("Логін")}
-              onBlur={handleBlur}
-              placeholder="Логін"
-              value={name}
-              autoComplete="name"
-              onChangeText={setName}
-            />
-
-            <TextInput
-              style={[
-                styles.input,
-                focusedInput === "Адреса електронної пошти" &&
-                  styles.inputFocused,
-              ]}
-              onChangeText={setEmail}
-              onFocus={() => handleFocus("Адреса електронної пошти")}
-              onBlur={handleBlur}
-              autoComplete="email"
-              value={email}
-              placeholder="Адреса електронної пошти"
-            />
-            <View style={styles.passwordInputContainer}>
               <TextInput
-                placeholder="Пароль"
                 style={[
                   styles.input,
-                  styles.lastInput,
-                  focusedInput === "Пароль" && styles.inputFocused,
+                  focusedInput === "Логін" && styles.inputFocused,
                 ]}
-                onFocus={() => handleFocus("Пароль")}
+                onFocus={() => handleFocus("Логін")}
                 onBlur={handleBlur}
-                value={password}
-                autoComplete="password"
-                secureTextEntry={!visiblePassword}
-                onChangeText={setPassword}
+                placeholder="Логін"
+                value={name}
+                autoComplete="name"
+                onChangeText={setName}
               />
-              <TouchableOpacity
-                style={styles.passwordIsShown}
-                onPress={toggleVisiblePassword}
-              >
-                <Text style={styles.passwordIsShownText}>
-                  {visiblePassword ? "Приховати" : "Показати"}
-                </Text>
+
+              <TextInput
+                style={[
+                  styles.input,
+                  focusedInput === "Адреса електронної пошти" &&
+                    styles.inputFocused,
+                ]}
+                onChangeText={setEmail}
+                onFocus={() => handleFocus("Адреса електронної пошти")}
+                onBlur={handleBlur}
+                autoComplete="email"
+                value={email}
+                placeholder="Адреса електронної пошти"
+              />
+              <View style={styles.passwordInputContainer}>
+                <TextInput
+                  placeholder="Пароль"
+                  style={[
+                    styles.input,
+                    styles.lastInput,
+                    focusedInput === "Пароль" && styles.inputFocused,
+                  ]}
+                  onFocus={() => handleFocus("Пароль")}
+                  onBlur={handleBlur}
+                  value={password}
+                  autoComplete="password"
+                  secureTextEntry={!visiblePassword}
+                  onChangeText={setPassword}
+                />
+                <TouchableOpacity
+                  style={styles.passwordIsShown}
+                  onPress={toggleVisiblePassword}
+                >
+                  <Text style={styles.passwordIsShownText}>
+                    {visiblePassword ? "Приховати" : "Показати"}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </KeyboardAvoidingView>
+
+            <TouchableOpacity style={gStyle.button} onPress={onRegistration}>
+              <Text style={gStyle.buttonText}>Зареєструватися</Text>
+            </TouchableOpacity>
+            <View style={styles.textContainer}>
+              <Text style={[styles.text, styles.centerText]}>
+                Вже є акаунт?
+              </Text>
+              <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+                <Text style={[styles.text, styles.linkText]}>Увійти</Text>
               </TouchableOpacity>
             </View>
-          </KeyboardAvoidingView>
-
-          <TouchableOpacity style={styles.button} onPress={onRegistration}>
-            <Text style={styles.buttonText}>Зареєструватися</Text>
-          </TouchableOpacity>
-          <View style={styles.textContainer}>
-            <Text style={[styles.text, styles.centerText]}>Вже є акаунт?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-              <Text style={[styles.text, styles.linkText]}>Увійти</Text>
-            </TouchableOpacity>
           </View>
         </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-  },
-  imageContainer: {
-    flex: 1,
-  },
-  image: {
     width: "100%",
+    height: "70%",
+    marginTop: "auto",
+    backgroundColor: "#ffffff",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    display: "flex",
+    paddingLeft: 16,
+    paddingRight: 16,
   },
+
   avatarContainer: {
-    position: "absolute",
-    top: "45%",
-    left: "50%",
-    marginTop: -60,
-    marginLeft: -60,
+    marginLeft: "auto",
+    marginRight: "auto",
+    top: -60,
     width: 120,
     height: 120,
-    borderRadius: 16,
     backgroundColor: "#F6F6F6",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 9,
+    borderRadius: 16,
   },
   avatarImage: {
     marginLeft: "auto",
@@ -222,13 +223,8 @@ const styles = StyleSheet.create({
     borderWidth: 0,
   },
   formContainer: {
-    position: "relative",
-    flex: 1,
     height: 549,
     backgroundColor: "#ffffff",
-    paddingHorizontal: 20,
-    paddingTop: 50,
-    paddingBottom: 20,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
   },
@@ -236,16 +232,17 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Medium",
     textAlign: "center",
     fontSize: 30,
-    marginBottom: 30,
+    marginBottom: 40,
+    marginTop: 0,
   },
   input: {
-    width: 343,
+    width: "100%",
     height: 50,
-    padding: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
     borderColor: "gray",
     borderWidth: 1,
     marginBottom: 16,
-    paddingHorizontal: 10,
     borderRadius: 8,
     backgroundColor: "#F6F6F6",
     borderColor: "#E8E8E8",
@@ -272,20 +269,6 @@ const styles = StyleSheet.create({
     paddingRight: 5,
   },
 
-  button: {
-    backgroundColor: "#FF6C00",
-    width: 343,
-    height: 50,
-    marginTop: 40,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderRadius: 100,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
-    textAlign: "center",
-  },
   textContainer: {
     flexDirection: "row",
     justifyContent: "center",

@@ -4,7 +4,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback, 
+  TouchableWithoutFeedback,
   Keyboard,
   StyleSheet,
   Image,
@@ -12,7 +12,8 @@ import {
   Platform,
   Alert,
 } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
+import { gStyle } from "../styles/style";
 
 const LoginScreen = () => {
   const [password, setPassword] = useState("");
@@ -20,7 +21,6 @@ const LoginScreen = () => {
   const [visiblePassword, setVisiblePassword] = useState(false);
   const [focusedInput, setFocusedInput] = useState(null);
   const navigation = useNavigation();
-
 
   const handleFocus = (placeholder) => {
     setFocusedInput(placeholder);
@@ -34,7 +34,6 @@ const LoginScreen = () => {
     setVisiblePassword(!visiblePassword);
   };
 
-
   const handleLoginButtonPress = () => {
     if (!email || !password) {
       Alert.alert("Помилка", "Будь ласка, заповніть усі поля");
@@ -45,71 +44,75 @@ const LoginScreen = () => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image
-          source={require("../assets/images/backgroundImg.jpg")}
-          resizeMode="cover"
-          style={styles.image}
-        />
-      </View>
-      <View style={styles.formContainer}>
-        <Text style={styles.heading}>Увійти</Text>
-        <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
-        >
-          <TextInput
-            style={[
-              styles.input,
-              focusedInput === "Адреса електронної пошти" &&
-                styles.inputFocused,
-            ]}
-            onChangeText={setEmail}
-            onFocus={() => handleFocus("Адреса електронної пошти")}
-            onBlur={handleBlur}
-            autoComplete="email"
-            value={email}
-            placeholder="Адреса електронної пошти"
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image
+            source={require("../assets/images/backgroundImg.jpg")}
+            resizeMode="cover"
+            style={styles.image}
           />
-          <View style={styles.passwordInputContainer}>
+        </View>
+        <View style={styles.formContainer}>
+          <Text style={styles.heading}>Увійти</Text>
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+          >
             <TextInput
-              placeholder="Пароль"
               style={[
                 styles.input,
-                styles.lastInput,
-                focusedInput === "Пароль" && styles.inputFocused,
+                focusedInput === "Адреса електронної пошти" &&
+                  styles.inputFocused,
               ]}
-              onFocus={() => handleFocus("Пароль")}
+              onChangeText={setEmail}
+              onFocus={() => handleFocus("Адреса електронної пошти")}
               onBlur={handleBlur}
-              value={password}
-              autoComplete="password"
-              secureTextEntry={!visiblePassword}
-              onChangeText={setPassword}
+              autoComplete="email"
+              value={email}
+              placeholder="Адреса електронної пошти"
             />
+            <View style={styles.passwordInputContainer}>
+              <TextInput
+                placeholder="Пароль"
+                style={[
+                  styles.input,
+                  styles.lastInput,
+                  focusedInput === "Пароль" && styles.inputFocused,
+                ]}
+                onFocus={() => handleFocus("Пароль")}
+                onBlur={handleBlur}
+                value={password}
+                autoComplete="password"
+                secureTextEntry={!visiblePassword}
+                onChangeText={setPassword}
+              />
+              <TouchableOpacity
+                style={styles.passwordIsShown}
+                onPress={toggleVisiblePassword}
+              >
+                <Text style={styles.passwordIsShownText}>
+                  {visiblePassword ? "Приховати" : "Показати"}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+          <TouchableOpacity
+            style={gStyle.button}
+            onPress={handleLoginButtonPress}
+          >
+            <Text style={gStyle.buttonText}>Увійти</Text>
+          </TouchableOpacity>
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>Немає акаунту?</Text>
             <TouchableOpacity
-              style={styles.passwordIsShown}
-              onPress={toggleVisiblePassword}
+              onPress={() => navigation.navigate("Registration")}
             >
-              <Text style={styles.passwordIsShownText}>
-                {visiblePassword ? "Приховати" : "Показати"}
+              <Text style={[styles.text, styles.linkText]}>
+                Зареєструватись
               </Text>
             </TouchableOpacity>
           </View>
-        </KeyboardAvoidingView>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleLoginButtonPress}
-        >
-          <Text style={styles.buttonText}>Увійти</Text>
-        </TouchableOpacity>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>Немає акаунту?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Registration")}>
-            <Text style={[styles.text, styles.linkText]}>Зареєструватись</Text>
-          </TouchableOpacity>
         </View>
       </View>
-    </View>
     </TouchableWithoutFeedback>
   );
 };
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
   formContainer: {
     position: "relative",
     flex: 1,
-    height: 489,
+    height: "60%",
     backgroundColor: "#ffffff",
     paddingHorizontal: 20,
     paddingTop: 50,
@@ -174,20 +177,6 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     color: "#1B4371",
     paddingRight: 5,
-  },
-  button: {
-    backgroundColor: "#FF6C00",
-    width: 343,
-    height: 50,
-    marginTop: 43,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderRadius: 100,
-  },
-  buttonText: {
-    color: "#ffffff",
-    fontSize: 16,
-    textAlign: "center",
   },
   textContainer: {
     flexDirection: "row",
