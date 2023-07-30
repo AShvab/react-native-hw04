@@ -13,7 +13,7 @@ export const gStyle = StyleSheet.create({
         justifyContent: "flex-end",
         alignItems: "flex-end",
         width: "100%",
-        height: 90,
+        height: 100,
         paddingLeft: 16,
         paddingRight: 16,
         paddingBottom: 12,

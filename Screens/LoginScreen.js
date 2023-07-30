@@ -39,7 +39,13 @@ const LoginScreen = () => {
       Alert.alert("Помилка", "Будь ласка, заповніть усі поля");
       return;
     }
+    clearForm();
     navigation.navigate("Home");
+  };
+
+  const clearForm = () => {
+    setEmail("");
+    setPassword("");
   };
 
   return (

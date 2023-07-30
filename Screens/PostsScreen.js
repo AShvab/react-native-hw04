@@ -7,6 +7,7 @@ import { gStyle } from "../styles/style";
 const PostsScreen = () => {
   const navigation = useNavigation();
 
+
   return (
     <View style={gStyle.screenContainer}>
       <View style={styles.headingContainer}>

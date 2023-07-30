@@ -22,6 +22,7 @@ const CreatePostsScreen = () => {
   const navigation = useNavigation();
   const [postPhoto, setPostPhoto] = useState(null);
   const [photoName, setPhotoName] = useState("");
+  const [location, setLocation] = useState("");
 
   const handleButtonPress = async () => {
     try {
@@ -49,8 +50,11 @@ const CreatePostsScreen = () => {
     }
   };
 
+
   const removePostPhoto = () => {
     setPostPhoto(null);
+    setPhotoName("");
+    setLocation("");
   };
 
   return (
@@ -166,6 +170,8 @@ const CreatePostsScreen = () => {
             <TextInput
               style={styles.inputTextMap}
               placeholder="Місцевість..."
+              value={location}
+              onChangeText={(text) => setLocation(text)}
             />
           </View>
           <View style={styles.publishButtonContainer}>
