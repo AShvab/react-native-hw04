@@ -14,10 +14,9 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import Background from "../assets/images/backgroundImg.jpg";
-import Svg, { Circle, Path } from "react-native-svg";
+import Svg, { Path } from "react-native-svg";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { gStyle } from "../styles/style";
-
 
 import Rectangle1 from "../assets/images/Rectangle1.jpg";
 import Rectangle2 from "../assets/images/Rectangle2.jpg";
@@ -160,13 +159,13 @@ const ProfileScreen = () => {
                         fill="#FF6C00"
                       />
                     </Svg>
-                    <Text >{item.comments}</Text>
+                    <Text>{item.comments}</Text>
                   </View>
                   <View
                     style={{ display: "flex", flexDirection: "row", gap: 8 }}
                   >
                     <Feather name="thumbs-up" size={24} color={"#FF6C00"} />
-                    <Text >{item.likes}</Text>
+                    <Text>{item.likes}</Text>
                   </View>
                   <View
                     style={{
