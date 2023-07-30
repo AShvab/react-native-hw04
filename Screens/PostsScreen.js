@@ -54,9 +54,6 @@ const styles = StyleSheet.create({
   logoutButton: {
     paddingRight: 10,
   },
-  logoutButtonText: {
-    fontSize: 12,
-  },
   userCard: {
     flexDirection: "row",
     alignItems: "center",
